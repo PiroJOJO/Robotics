@@ -1,0 +1,44 @@
+1 
+printenv
+
+2
+ros2 pkg prefix ros2topic
+ros2 pkg executables action_tutorials_py
+
+3
+ros2 pkg create --build-type ament_python svolodina --dependencies std_msgs rclpy rclcpp
+
+4
+colcon build --packages-select svolodina  > colcon_build.txt 
+
+5
+ros2 run turtlesim turtlesim_node --ros-args --remap __node:=svolodina_turtle
+ros2 node list > rosnode_list.txt
+ros2 node info > rosnode_info.txt
+
+6
+ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 6.28, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: 6.28}}"
+ros2 topic pub --once /turtle1/cmd_vel geometry_msgs/msg/Twist "{linear: {x: 6.28, y: 0.0, z: 0.0}, angular: {x: 0.0, y: 0.0, z: -6.28}}"
+
+7
+ros2 run turtlesim turtlesim_node 
+ros2 param set /turtlesim background_g 124
+ros2 service call /spawn turtlesim/srv/Spawn "{x: 2, y: 2, theta: 0.2, name: 'Raphael'}"
+ros2 service call /spawn turtlesim/srv/Spawn "{x: 4, y: 4, theta: 0.2, name: 'Donatello'}"
+ros2 service call /spawn turtlesim/srv/Spawn "{x: 8, y: 8, theta: 0.2, name: 'Michelangelo'}"
+ros2 service call /spawn turtlesim/srv/Spawn "{x: 10, y: 10, theta: 0.2, name: 'Leonardo'}"
+
+8
+ros2 launch three_turtles.launch 
+ros2 run turtlesim turtle_teleop_key --ros_args -r __ns:=/turtlesim1
+
+10
+
+colcon build --packages-select py_pubsub
+source install/setup.bash
+ros2 run py_pubsub text_to_cmd_vel 
+
+ros2 run turtlesim turtlesim_node 
+
+ros2 topic pub --once cmd_text std_msgs/msg/String "{data: "move_forward"}"
+
