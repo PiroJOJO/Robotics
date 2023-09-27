@@ -1,0 +1,11 @@
+1
+cd/ros2_wc
+colcon build --packages-select py_srvcli
+
+cd/ros2_wc
+source install/setup.bash
+ros2_ws$ ros2 run py_srvcli service
+
+cd/ros2_wc
+ros2 run py_srvcli client volodina sofia pavlovna
+
