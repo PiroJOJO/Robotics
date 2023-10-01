@@ -9,6 +9,17 @@ ros2_ws$ ros2 run py_srvcli service
 cd/ros2_wc
 ros2 run py_srvcli client volodina sofia pavlovna
 
+2
+ros2 run turtlesim turtlesim_node
+
+colcon build
+source install/setup.bash
+cd src
+ros2 run py_actions client
+
+~/ros2_ws/src$ ros2 run py_actions server
+
+
 
 3
 
