@@ -19,8 +19,6 @@ ros2 run py_actions client
 
 ~/ros2_ws/src$ ros2 run py_actions server
 
-
-
 3
 
 для записи
@@ -45,4 +43,12 @@ ros2 bag play turtle_cmd_vel.mcap -r 2
 
 ros2 doctor
 ros2 doctor --report > doctor.txt
+
+5
+
+ros2 run turtlesim turtlesim_node
+
+ros2_wc/ colcon build
+ros2_wc/ source install/setup.bash
+rws2_wc/src/ ros2 run move_to_goal move_to_goal 7.0 7.0 -90.0
 
