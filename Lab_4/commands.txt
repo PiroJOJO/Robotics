@@ -1,0 +1,13 @@
+1
+
+ros2 launch turtle_tf2_py turtle_tf2_demo.launch.py
+ros2 run tf2_tools view_frames
+
+ros2 run tf2_ros tf2_echo turtle2 turtle1
+
+2
+
+/ros2_ws$ colcon build --packages-select learning_tf2_py
+ . install/setup.bash
+cd src/
+ros2 launch learning_tf2_py turtle_tf2_dynamic_frame_demo.launch.py direction_of_rotation:=-1
