@@ -1,0 +1,6 @@
+1
+
+/ros2_ws/src/sam_bot_description$ colcon build
+/ros2_ws/src/sam_bot_description$ . install/setup.bash
+/ros2_ws/src/sam_bot_description$ ros2 launch sam_bot_description robot_display.launch.py
+
