@@ -1,0 +1,131 @@
+<?xml version="1.0" ?>
+<robot name='robot' xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find robot_description)/urdf/gazebo.urdf.xacro" />
+    <!--xacro:include filename="$(find robot_description)/urdf/lidar.urdf.xacro" /-->
+    <!--xacro:include filename="$(find robot_description)/urdf/depth.urdf.xacro" /-->
+
+  <!-- Define robot constants -->
+  <xacro:property name="base_width" value="0.31"/>
+  <xacro:property name="base_radius" value="0.5"/>
+  <xacro:property name="base_height" value="0.2"/>
+
+  <xacro:property name="wheel_radius" value="0.10"/>
+  <xacro:property name="wheel_width" value="0.04"/>
+  <xacro:property name="wheel_ygap" value="0.025"/>
+  <xacro:property name="wheel_zoff" value="0.05"/>
+  <xacro:property name="wheel_xoff" value="0.12"/>
+  <xacro:property name="caster_radius" value="${(wheel_radius+wheel_zoff-(base_height/2))}"/>
+
+
+  <xacro:property name="caster_xoff" value="0.14"/>
+
+  <xacro:property name="base_m" value="2"/>
+  <xacro:property name="wheel_m" value="0.4"/>
+  <xacro:property name="caster_m" value="1"/>
+
+  <!-- Define robot color -->
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>  
+
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>  
+
+  <!-- Robot Base -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <!-- <box size="${base_length} ${base_width} ${base_height}"/> -->
+        <cylinder radius="${base_radius}" length="${base_height}"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="${base_radius}" length="${base_height}"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="${base_m}"/>
+      <inertia ixx="${base_m / 12 * (3 * base_radius * base_radius + base_height * base_height)}" ixy="0.0" ixz="0.0" iyy="${base_m / 12 * (3 * base_radius * base_radius + base_height * base_height)}" iyz="0.0" izz="${base_m / 2 * base_radius * base_radius}"/>
+    </inertial>
+  </link>
+  
+  <!-- Robot Footprint -->
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0.0 0.0 ${-(wheel_radius+wheel_zoff)}" rpy="0 0 0"/>
+  </joint>
+  
+  <!-- Wheels -->
+  <xacro:macro name="wheel" params="prefix x_reflect y_reflect">
+    <link name="${prefix}_link">
+      <visual>
+        <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+        <geometry>
+            <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+        </geometry>
+        <material name="black"/>
+      </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="${pi/2} 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="${wheel_m}"/>
+      <inertia ixx="${wheel_m / 12 * (3 * wheel_radius * wheel_radius + wheel_width * wheel_width)}" ixy="0.0" ixz="0.0" iyy="${wheel_m / 12 * (3 * wheel_radius * wheel_radius + wheel_width * wheel_width)}" iyz="0.0" izz="${wheel_m / 2 * wheel_radius * wheel_radius}"/>
+    </inertial>
+    </link>
+
+    <joint name="${prefix}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${prefix}_link"/>
+      <origin xyz="0 ${y_reflect * base_radius} ${-wheel_zoff}" rpy="0 0 0"/>
+      <axis xyz="0 1 0"/>
+    </joint>
+  </xacro:macro>
+
+  <xacro:wheel prefix="drivewhl_l" x_reflect="-1" y_reflect="1" />
+  <xacro:wheel prefix="drivewhl_r" x_reflect="-1" y_reflect="-1" />
+
+  <!-- Caster Wheel -->
+  <link name="front_caster">
+    <visual>
+      <geometry>
+        <sphere radius="${caster_radius}"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <sphere radius="${caster_radius}"/>
+      </geometry>
+    </collision>
+    
+    <inertial>
+      <mass value="${caster_m}"/>
+      <inertia ixx="${caster_m / 3 * 2 * caster_radius * caster_radius}" ixy="0.0" ixz="0.0" iyy="${caster_m / 3 * 2 * caster_radius * caster_radius}" iyz="0.0" izz="${caster_m / 3 * 2 * caster_radius * caster_radius}"/>
+    </inertial>
+  </link>
+
+  <joint name="caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_caster"/>
+    <origin xyz="${base_radius * 0.8} 0.0 ${-(base_height/2)}" rpy="0 0 0"/>
+  </joint>
+</robot>
