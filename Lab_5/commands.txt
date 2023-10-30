@@ -17,3 +17,7 @@
 ~/ros2_ws/ . install/setup.bash
 ~/ros2_ws/src/ ros2 launch circle circle_movement.launch.py radius:=1.0
 
+5
+~/ros2_ws/ colcon build --packages-select chess
+~/ros2_ws/ . install/setup.bash
+~/ros2_ws/src/  ros2 launch chess chess_movement.launch.py turn:=1.0
