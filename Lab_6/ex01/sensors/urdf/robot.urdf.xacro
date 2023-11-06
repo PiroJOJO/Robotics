@@ -1,0 +1,836 @@
+<?xml version="1.0" ?>
+<robot name='robot' xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find sensors)/urdf/gazebo.urdf.xacro" />
+    <xacro:include filename="$(find sensors)/urdf/lidar.urdf.xacro" />
+    <xacro:include filename="$(find sensors)/urdf/depth.urdf.xacro" />
+
+<!-- Define robot color -->
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>  
+
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>  
+
+  <!-- Robot Base -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <!-- <box size="${base_length} ${base_width} ${base_height}"/> -->
+        <cylinder radius="0.5" length="0.2"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <cylinder radius="0.5" length="0.2"/>
+      </geometry>
+    </collision>
+
+    <inertial>
+      <mass value="2"/>
+      <inertia ixx="0.13" ixy="0.0" ixz="0.0" iyy="0.13" iyz="0.0" izz="0.25"/>
+    </inertial>
+  </link>
+  
+  <!-- Robot Footprint -->
+  <link name="base_footprint"/>
+
+  <joint name="base_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="base_footprint"/>
+    <origin xyz="0.0 0.0 -0.15" rpy="0 0 0"/>
+  </joint>
+  <!-- Horse -->
+
+  <!--Legs-->
+
+  <!-- Right  -->
+  <!-- Hoof-->
+  <link name="right_hoof">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_hoof_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_hoof"/>
+    <origin xyz="-0.2 0.2 0.1" rpy="1.57 0 0"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- foot-->
+  <link name="right_foot">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.12"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.12"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_foot_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_foot"/>
+    <origin xyz="-0.17 0.2 0.19" rpy="2.0 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- knee-->
+  <link name="right_knee">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.36"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.36"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_knee_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_knee"/>
+    <origin xyz="0 0.2 0.35" rpy="2.5 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- hip-->
+  <link name="right_hip">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.15" length="0.4"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.15" length="0.4"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_hip_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_hip"/>
+    <origin xyz="0.16 0.15 0.63" rpy="2.1 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- Left  -->
+  <!-- Hoof-->
+  <link name="left_hoof">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_hoof_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_hoof"/>
+    <origin xyz="0.2 -0.2 0.1" rpy="1.57 0 0"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- foot-->
+  <link name="left_foot">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.12"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.12"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_foot_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_foot"/>
+    <origin xyz="0.21 -0.2 0.18" rpy="1.7 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- knee-->
+  <link name="left_knee">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.36"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.36"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_knee_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_knee"/>
+    <origin xyz="0.37 -0.2 0.32" rpy="2.6 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- hip-->
+  <link name="left_hip">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.15" length="0.4"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.15" length="0.4"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_hip_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_hip"/>
+    <origin xyz="0.35 -0.15 0.6" rpy="1.3 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+<!-- Body -->
+  <link name="body">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.2" length="0.6"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.2" length="0.6"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="body_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="body"/>
+    <origin xyz="0.13 0 0.9" rpy="1.0 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!--Hands-->
+
+  <!-- Left  -->
+  <!--Shoulder-->
+  <link name="left_shoulder">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.1" length="0.3"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.11" length="0.3"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_shoulder_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_shoulder"/>
+    <origin xyz="-0.2 0.2 1.2" rpy="0.4 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- arm-->
+  <link name="left_arm">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.3"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.3"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_arm_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_arm"/>
+    <origin xyz="-0.4 0.2 1.2" rpy="2.6 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- hand-->
+  <link name="left_hand">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.2"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.2"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_hand_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_hand"/>
+    <origin xyz="-0.5 0.2 1.05" rpy="1.0 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- finger-->
+  <link name="left_finger">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="left_finger_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="left_finger"/>
+    <origin xyz="-0.43 0.2 0.92" rpy="0.6 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- Right  -->
+  <!--Shoulder-->
+  <link name="right_shoulder">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.1" length="0.3"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.11" length="0.3"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_shoulder_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_shoulder"/>
+    <origin xyz="-0.2 -0.2 1.2" rpy="0.1 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- arm-->
+  <link name="right_arm">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.3"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.3"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_arm_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_arm"/>
+    <origin xyz="-0.45 -0.2 1.15" rpy="2.4 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- hand-->
+  <link name="right_hand">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.045" length="0.2"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.045" length="0.2"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_hand_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_hand"/>
+    <origin xyz="-0.45 -0.2 1.0" rpy="0.3 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- finger-->
+  <link name="right_finger">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.07" length="0.06"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="right_finger_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="right_finger"/>
+    <origin xyz="-0.3 -0.2 1.0" rpy="1.9 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+<!-- Neck -->
+  <link name="neck">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.2" length="0.2"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.2" length="0.2"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="neck_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="neck"/>
+    <origin xyz="-0.07 0 1.3" rpy="1.57 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+<!-- neckup -->
+  <link name="neckup">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.15" length="0.2"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.2" length="0.2"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="neckup_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="neckup"/>
+    <origin xyz="-0.1 0 1.5" rpy="1.57 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+<!-- Head -->
+  <link name="cheeks">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.12" length="0.18"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <cylinder radius="0.12" length="0.18"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="cheeks_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="cheeks"/>
+    <origin xyz="-0.2 0 1.6" rpy="0 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- Smile -->
+  <link name="smile">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <box size = "0.1 0.1 0.2"/>
+      </geometry>
+      <material name="white"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+          <box size = "0.25 0.25 0.3"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="smile_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="smile"/>
+    <origin xyz="-0.35 0 1.55" rpy="0 0 1.57"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+<!-- hair -->
+  <link name="hair">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <box size = "0.8 0.01 0.3"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+          <box size = "0.8 0.01 0.3"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="hair_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="hair"/>
+    <origin xyz="0.1 0 1.5" rpy="0 1.2 0"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+<!-- tail -->
+  <link name="tail">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+          <box size = "0.4 0.01 0.1"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="0 0 0"/>
+     <geometry>
+          <box size = "0.4 0.01 0.1"/>
+     </geometry>
+   </collision>
+<!-- todo -->
+   <inertial> 
+     <mass value="0.001"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="tail_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="tail"/>
+    <origin xyz="0.55 0 0.6" rpy="0 0.8 0"/>
+    <axis xyz="0 0 0"/>
+  </joint>
+
+  <!-- Wheels -->
+  <link name="drivewhl_l_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.1" length="0.04"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+       <cylinder radius="0.1" length="0.04"/>
+     </geometry>
+   </collision>
+
+   <inertial>
+     <mass value="0.4"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="drivewhl_l_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="drivewhl_l_link"/>
+    <origin xyz="0 0.5 -0.05" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <link name="drivewhl_r_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="1.57 0 0"/>
+      <geometry>
+          <cylinder radius="0.1" length="0.04"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+   <collision>
+     <origin xyz="0 0 0" rpy="1.57 0 0"/>
+     <geometry>
+       <cylinder radius="0.1" length="0.04"/>
+     </geometry>
+   </collision>
+
+   <inertial>
+     <mass value="0.4"/>
+     <inertia ixx="0.001" ixy="0.0" ixz="0.0" iyy="0.001" iyz="0.0" izz="0.002"/>
+   </inertial>
+  </link>
+
+  <joint name="drivewhl_r_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="drivewhl_r_link"/>
+    <origin xyz="0 -0.5 -0.05" rpy="0 0 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  
+  <!-- Caster Wheel -->
+  <link name="front_caster">
+    <visual>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    
+    <inertial>
+      <mass value="1"/>
+      <inertia ixx="0.002" ixy="0.0" ixz="0.0" iyy="0.002" iyz="0.0" izz="0.002"/>
+    </inertial>
+  </link>
+
+  <joint name="caster_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="front_caster"/>
+    <origin xyz="0.4 0.0 -0.1" rpy="0 0 0"/>
+  </joint>  
+</robot>
