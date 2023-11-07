@@ -1,0 +1,7 @@
+1 
+2
+/ros2_ws$ colcon build --packages-select sensors 
+/ros2_ws$ . install/setup.bash
+/ros2_ws$ cd src/
+/ros2_ws/src$ ros2 launch sensors robot_lidar.launch.py
+
