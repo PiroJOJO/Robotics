@@ -5,3 +5,23 @@
 /ros2_ws$ cd src/
 /ros2_ws/src$ ros2 launch sensors robot_lidar.launch.py
 
+3
+/ros2_ws$ colcon build --packages-select sensors 
+/ros2_ws$ . install/setup.bash
+/ros2_ws$ cd src/
+/ros2_ws/src$ ros2 launch sensors robot_lidar.launch.py
+
+~/ros2_ws/src$ gz topic -e -t '/imu'
+
+4
+/ros2_ws/src$ ros2 launch lidar lidar.launch.py
+
+5
+
+/ros2_ws$ colcon build --packages-select depth_camera
+         
+/ros2_ws$ . install/setup.bash
+/ros2_ws$ cd src/
+/ros2_ws/src$ ros2 launch depth_camera depth.launch.py
+
+
